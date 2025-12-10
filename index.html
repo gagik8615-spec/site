@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Learning Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="languages.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">⚡ Arduino Hub</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#tutorials">Tutorials</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#pinouts">Pinouts</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+            <div class="language-selector">
+                <select id="languageSelect" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hy">Հայերեն</option>
+                    <option value="ru">Русский</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="heroTitle">Welcome to Arduino Learning Hub</h1>
+            <p data-i18n="heroSubtitle">Master Arduino Programming with Interactive Tutorials and Real-World Projects</p>
+            <button class="cta-btn" data-i18n="startLearning" onclick="scrollToSection('tutorials')">Start Learning</button>
+        </div>
+    </header>
+
+    <section id="tutorials" class="tutorials">
+        <div class="container">
+            <h2 data-i18n="beginnerTutorials">Beginner Tutorials</h2>
+            <div class="tutorial-grid">
+                <div class="tutorial-card">
+                    <div class="card-icon">📍</div>
+                    <h3 data-i18n="gettingStarted">Getting Started</h3>
+                    <p data-i18n="gettingStartedDesc">Learn how to set up your Arduino board and IDE. Perfect for beginners.</p>
+                    <button class="learn-btn" data-i18n="learnMore" onclick="expandTutorial(0)">Learn More</button>
+                    <div id="tutorial-0" class="tutorial-details hidden">
+                        <h4>Steps to Get Started:</h4>
+                        <ol>
+                            <li>Download Arduino IDE from arduino.cc</li>
+                            <li>Install the IDE on your computer</li>
+                            <li>Connect your Arduino board via USB</li>
+                            <li>Select the correct board and COM port</li>
+                            <li>Upload your first sketch</li>
+                        </ol>
+                        <pre><code>void setup() {
+  Serial.begin(9600);
+  Serial.println("Arduino Ready!");
+}
+
+void loop() {
+  // Your code here
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">💡</div>
+                    <h3>Basic LED Control</h3>
+                    <p>Control an LED using digitalWrite and digital pins.</p>
+                    <button class="learn-btn" onclick="expandTutorial(1)">Learn More</button>
+                    <div id="tutorial-1" class="tutorial-details hidden">
+                        <h4>Blinking LED Code:</h4>
+                        <pre><code>const int ledPin = 13;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}</code></pre>
+                        <p><strong>Components needed:</strong> Arduino board, LED, 220Ω resistor, Jumper wires</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">📖</div>
+                    <h3>Reading Analog Input</h3>
+                    <p>Learn how to read analog sensors and values.</p>
+                    <button class="learn-btn" onclick="expandTutorial(2)">Learn More</button>
+                    <div id="tutorial-2" class="tutorial-details hidden">
+                        <h4>Analog Read Example:</h4>
+                        <pre><code>int sensorPin = A0;
+int sensorValue = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  sensorValue = analogRead(sensorPin);
+  Serial.println(sensorValue);
+  delay(100);
+}</code></pre>
+                        <p><strong>Range:</strong> 0-1023 (10-bit resolution)</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🔊</div>
+                    <h3>Serial Communication</h3>
+                    <p>Master serial communication for debugging and data transfer.</p>
+                    <button class="learn-btn" onclick="expandTutorial(3)">Learn More</button>
+                    <div id="tutorial-3" class="tutorial-details hidden">
+                        <h4>Serial Communication Code:</h4>
+                        <pre><code>void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available()) {
+    String data = Serial.readStringUntil('\n');
+    Serial.print("Received: ");
+    Serial.println(data);
+  }
+}</code></pre>
+                        <p><strong>Baud Rate:</strong> 9600 (common standard)</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🎛️</div>
+                    <h3>PWM Control</h3>
+                    <p>Control brightness and speed with PWM signals.</p>
+                    <button class="learn-btn" onclick="expandTutorial(4)">Learn More</button>
+                    <div id="tutorial-4" class="tutorial-details hidden">
+                        <h4>PWM LED Brightness Control:</h4>
+                        <pre><code>int ledPin = 9; // PWM pin
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  for (int i = 0; i <= 255; i++) {
+    analogWrite(ledPin, i);
+    delay(10);
+  }
+  for (int i = 255; i >= 0; i--) {
+    analogWrite(ledPin, i);
+    delay(10);
+  }
+}</code></pre>
+                        <p><strong>PWM Pins:</strong> 3, 5, 6, 9, 10, 11 (Arduino Uno)</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">📦</div>
+                    <h3>Libraries & Functions</h3>
+                    <p>Explore Arduino libraries and how to use them effectively.</p>
+                    <button class="learn-btn" onclick="expandTutorial(5)">Learn More</button>
+                    <div id="tutorial-5" class="tutorial-details hidden">
+                        <h4>Using Libraries:</h4>
+                        <pre><code>#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal.h&gt;
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.print("Hello Arduino!");
+}</code></pre>
+                        <p><strong>Popular Libraries:</strong> Wire, SPI, Servo, LiquidCrystal</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🔌</div>
+                    <h3>Button Input & Debouncing</h3>
+                    <p>Learn to read button inputs and handle debouncing.</p>
+                    <button class="learn-btn" onclick="expandTutorial(6)">Learn More</button>
+                    <div id="tutorial-6" class="tutorial-details hidden">
+                        <h4>Button Input with Debouncing:</h4>
+                        <pre><code>const int buttonPin = 2;
+const int ledPin = 13;
+int buttonState = 0;
+int lastButtonState = 0;
+unsigned long lastDebounceTime = 0;
+const unsigned long debounceDelay = 50;
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  int reading = digitalRead(buttonPin);
+  
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
+  }
+  
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonState) {
+      buttonState = reading;
+      if (buttonState == HIGH) {
+        digitalWrite(ledPin, HIGH);
+      } else {
+        digitalWrite(ledPin, LOW);
+      }
+    }
+  }
+  
+  lastButtonState = reading;
+}</code></pre>
+                        <p><strong>Key Concept:</strong> Debouncing prevents false readings from button bouncing</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Time & Millis() Function</h3>
+                    <p>Master timing in Arduino without using delay().</p>
+                    <button class="learn-btn" onclick="expandTutorial(7)">Learn More</button>
+                    <div id="tutorial-7" class="tutorial-details hidden">
+                        <h4>Non-Blocking Timing Code:</h4>
+                        <pre><code>unsigned long previousMillis = 0;
+const unsigned long interval = 1000; // 1 second
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+  
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+    Serial.println("1 second passed!");
+  }
+}</code></pre>
+                        <p><strong>Advantage:</strong> Code runs other functions while timing</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🎵</div>
+                    <h3>Sound & Buzzer Control</h3>
+                    <p>Generate tones and control buzzers with tone() function.</p>
+                    <button class="learn-btn" onclick="expandTutorial(8)">Learn More</button>
+                    <div id="tutorial-8" class="tutorial-details hidden">
+                        <h4>Playing Musical Notes:</h4>
+                        <pre><code>const int buzzerPin = 9;
+
+// Frequency of notes
+#define NOTE_C4 262
+#define NOTE_D4 294
+#define NOTE_E4 330
+#define NOTE_F4 349
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  // Play a melody
+  playNote(NOTE_C4, 250);
+  playNote(NOTE_D4, 250);
+  playNote(NOTE_E4, 250);
+  delay(500);
+}
+
+void playNote(int frequency, int duration) {
+  tone(buzzerPin, frequency, duration);
+  delay(duration + 50);
+}</code></pre>
+                        <p><strong>Usage:</strong> tone(pin, frequency, duration)</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🔢</div>
+                    <h3>Data Types & Variables</h3>
+                    <p>Understand Arduino data types and memory management.</p>
+                    <button class="learn-btn" onclick="expandTutorial(9)">Learn More</button>
+                    <div id="tutorial-9" class="tutorial-details hidden">
+                        <h4>Data Types in Arduino:</h4>
+                        <pre><code>// Integer types
+byte myByte = 255; // 0-255
+int myInt = 32767; // -32,768 to 32,767
+long myLong = 2147483647; // Large numbers
+
+// Floating point
+float myFloat = 3.14;
+double myDouble = 3.14159265;
+
+// Boolean
+boolean myBool = true;
+
+// Character and String
+char myChar = 'A';
+String myString = "Hello Arduino";</code></pre>
+                        <p><strong>Memory Tip:</strong> Use byte for 0-255, int for standard numbers</p>
+                    </div>
+                </div>
+
+                <div class="tutorial-card">
+                    <div class="card-icon">🔄</div>
+                    <h3>Loops & Conditionals</h3>
+                    <p>Master control flow with loops and if statements.</p>
+                    <button class="learn-btn" onclick="expandTutorial(10)">Learn More</button>
+                    <div id="tutorial-10" class="tutorial-details hidden">
+                        <h4>Control Flow Examples:</h4>
+                        <pre><code>// If statement
+if (sensorValue > 500) {
+  digitalWrite(ledPin, HIGH);
+} else if (sensorValue > 250) {
+  digitalWrite(ledPin, LOW);
+}
+
+// For loop
+for (int i = 0; i < 10; i++) {
+  digitalWrite(ledPin, HIGH);
+  delay(100);
+  digitalWrite(ledPin, LOW);
+  delay(100);
+}
+
+// While loop
+int counter = 0;
+while (counter < 100) {
+  Serial.println(counter);
+  counter++;
+}</code></pre>
+                        <p><strong>Tip:</strong> Use braces {} to group multiple statements</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 data-i18n="popularProjects">Popular Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Traffic Light System</h3>
+                    <p>Build a working traffic light using LEDs and Arduino.</p>
+                    <div class="difficulty">Beginner</div>
+                    <button onclick="showProject('traffic')">View Project</button>
+                </div>
+
+                <div class="project-card">
+                    <h3>Temperature Monitor</h3>
+                    <p>Read temperature and display on LCD screen.</p>
+                    <div class="difficulty">Intermediate</div>
+                    <button onclick="showProject('temp')">View Project</button>
+                </div>
+
+                <div class="project-card">
+                    <h3>Motion Detector Alarm</h3>
+                    <p>Create a motion detection system with buzzer alert.</p>
+                    <div class="difficulty">Intermediate</div>
+                    <button onclick="showProject('motion')">View Project</button>
+                </div>
+
+                <div class="project-card">
+                    <h3>Plant Watering System</h3>
+                    <p>Automatic plant watering based on soil moisture.</p>
+                    <div class="difficulty">Advanced</div>
+                    <button onclick="showProject('watering')">View Project</button>
+                </div>
+            </div>
+
+            <div id="project-details" class="project-details hidden"></div>
+        </div>
+    </section>
+
+    <section id="pinouts" class="pinouts">
+        <div class="container">
+            <h2 data-i18n="pinoutsTitle">Arduino Pinout Reference</h2>
+            <p class="pinout-intro" data-i18n="pinoutsSubtitle">Complete pinout diagrams and specifications for different Arduino boards</p>
+            
+            <div class="pinout-tabs">
+                <button class="pinout-tab active" onclick="showPinoutBoard('uno')">Arduino Uno</button>
+                <button class="pinout-tab" onclick="showPinoutBoard('nano')">Arduino Nano</button>
+                <button class="pinout-tab" onclick="showPinoutBoard('mega')">Arduino Mega</button>
+                <button class="pinout-tab" onclick="showPinoutBoard('pro')">Arduino Pro Mini</button>
+            </div>
+
+            <div id="uno-pinout" class="pinout-content active">
+                <div class="pinout-diagram">
+                    <h3>Arduino Uno Pin Configuration</h3>
+                    <div class="pinout-visual">
+                        <div class="pin-group">
+                            <h4>Digital Pins (0-13)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">Pin 0 (RX) - Serial Input</div>
+                                <div class="pin-item">Pin 1 (TX) - Serial Output</div>
+                                <div class="pin-item">Pins 3, 5, 6, 9, 10, 11 - PWM Output</div>
+                                <div class="pin-item">Pins 2, 4, 7, 8, 12, 13 - Standard Digital</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Analog Pins (A0-A5)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">A0-A5 - Analog Input (10-bit, 0-1023)</div>
+                                <div class="pin-item">Voltage Range: 0V to 5V</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Power Pins</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">5V - +5V Power Supply</div>
+                                <div class="pin-item">3.3V - +3.3V Power Supply</div>
+                                <div class="pin-item">GND - Ground (2 pins)</div>
+                                <div class="pin-item">Vin - Power Input (7-12V)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pinout-code">
+                        <h4>Quick Reference Code:</h4>
+                        <pre><code>// Digital Pin Setup
+pinMode(13, OUTPUT);     // Set pin 13 as output
+digitalWrite(13, HIGH);  // Set pin 13 HIGH
+
+// Analog Pin Setup
+int value = analogRead(A0); // Read from A0 (0-1023)
+
+// PWM Output (pins 3,5,6,9,10,11)
+analogWrite(9, 255);     // Full brightness on pin 9
+
+// Serial Communication (pins 0,1)
+Serial.begin(9600);
+Serial.println("Hello");</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nano-pinout" class="pinout-content">
+                <div class="pinout-diagram">
+                    <h3>Arduino Nano Pin Configuration</h3>
+                    <div class="pinout-visual">
+                        <div class="pin-group">
+                            <h4>Digital Pins (0-13)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">Same as Uno - 14 digital pins total</div>
+                                <div class="pin-item">Pins 3, 5, 6, 9, 10, 11 - PWM capable</div>
+                                <div class="pin-item">Pin 0 (RX) & Pin 1 (TX) - Serial</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Analog Pins (A0-A7)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">A0-A7 - Analog Input (8 pins available)</div>
+                                <div class="pin-item">More analog pins than Uno!</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Special Features</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">Smaller form factor (18x45mm)</div>
+                                <div class="pin-item">Can be powered via USB or 5V pin</div>
+                                <div class="pin-item">Mini USB connector</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mega-pinout" class="pinout-content">
+                <div class="pinout-diagram">
+                    <h3>Arduino Mega 2560 Pin Configuration</h3>
+                    <div class="pinout-visual">
+                        <div class="pin-group">
+                            <h4>Digital Pins (0-53)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">54 digital pins total!</div>
+                                <div class="pin-item">Pins 2-13, 44-46 - PWM capable (15 PWM pins)</div>
+                                <div class="pin-item">Pins 0,1,19,18 - Multiple serial ports</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Analog Pins (A0-A15)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">A0-A15 - Analog Input (16 pins)</div>
+                                <div class="pin-item">Great for projects with many sensors</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Advanced Features</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">4 Hardware UART ports</div>
+                                <div class="pin-item">54KB SRAM (vs 2KB on Uno)</div>
+                                <div class="pin-item">256KB Flash memory</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pro-pinout" class="pinout-content">
+                <div class="pinout-diagram">
+                    <h3>Arduino Pro Mini Pin Configuration</h3>
+                    <div class="pinout-visual">
+                        <div class="pin-group">
+                            <h4>Digital Pins (0-13)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">14 digital pins (same as Uno)</div>
+                                <div class="pin-item">Pins 3, 5, 6, 9, 10, 11 - PWM</div>
+                                <div class="pin-item">No USB - requires FTDI programmer</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Analog Pins (A0-A6)</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">A0-A6 - Analog Input (7 pins)</div>
+                                <div class="pin-item">A4, A5 - I2C pins (SDA, SCL)</div>
+                            </div>
+                        </div>
+                        <div class="pin-group">
+                            <h4>Compact Design</h4>
+                            <div class="pin-list">
+                                <div class="pin-item">Smallest Arduino (33x18mm)</div>
+                                <div class="pin-item">Perfect for wearables and embedded projects</div>
+                                <div class="pin-item">Available in 3.3V and 5V versions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pinout-tips">
+                <h3>⚡ Pinout Tips & Best Practices</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>Analog Pins as Digital</h4>
+                        <p>You can use analog pins as digital pins: pinMode(A0, OUTPUT) and digitalWrite(A0, HIGH)</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>PWM Pins</h4>
+                        <p>Use analogWrite() only on PWM pins for analog output (0-255 maps to 0-5V)</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Serial Pins</h4>
+                        <p>Avoid using pins 0 & 1 for other purposes when using Serial communication</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Current Limits</h4>
+                        <p>Each pin can source/sink ~40mA. Total board ~200mA. Use external power for motors</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Voltage Levels</h4>
+                        <p>Digital pins: 5V (or 3.3V on some boards). Analog input: 0-5V for 0-1023</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Protection</h4>
+                        <p>Always use current-limiting resistors with LEDs and external circuits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="resources">
+        <div class="container">
+            <h2 data-i18n="resourcesTitle">Resources & References</h2>
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <h3>Official Documentation</h3>
+                    <p>Complete reference for Arduino functions and syntax.</p>
+                    <a href="https://www.arduino.cc/reference" target="_blank">Visit →</a>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Component Guide</h3>
+                    <p>Learn about resistors, capacitors, sensors, and more.</p>
+                    <button onclick="toggleComponentGuide()">View Guide</button>
+                    <div id="component-guide" class="hidden">
+                        <ul>
+                            <li><strong>Resistor:</strong> Limits current flow (Ohm's law: V=IR)</li>
+                            <li><strong>Capacitor:</strong> Stores electrical energy</li>
+                            <li><strong>LED:</strong> Light-emitting diode, needs current limiting resistor</li>
+                            <li><strong>Button:</strong> Input switch, requires debouncing</li>
+                            <li><strong>Sensor:</strong> Reads environmental data (temperature, light, etc.)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Pinout Reference</h3>
+                    <p>Arduino board pin configuration and capabilities.</p>
+                    <button onclick="togglePinout()">View Pinout</button>
+                    <div id="pinout-guide" class="hidden">
+                        <p><strong>Arduino Uno Pins:</strong></p>
+                        <ul>
+                            <li>Digital: 0-13 (Serial on 0,1)</li>
+                            <li>PWM: 3, 5, 6, 9, 10, 11</li>
+                            <li>Analog Input: A0-A5</li>
+                            <li>Power: 5V, 3.3V, GND</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="resource-card">
+                    <h3>Common Mistakes</h3>
+                    <p>Learn what beginners often get wrong.</p>
+                    <button onclick="toggleMistakes()">View Common Issues</button>
+                    <div id="mistakes-guide" class="hidden">
+                        <ul>
+                            <li>❌ Forgetting current limiting resistors for LEDs</li>
+                            <li>❌ Not initializing Serial communication correctly</li>
+                            <li>❌ Using wrong pin modes in setup()</li>
+                            <li>❌ Exceeding pin current limits</li>
+                            <li>❌ Mixing up analog and digital pins</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="community">
+        <div class="container">
+            <h2 data-i18n="joinCommunity">Join Our Community</h2>
+            <p data-i18n="communityText">Connect with other Arduino enthusiasts and share your projects!</p>
+            <div class="community-actions">
+                <button class="community-btn" onclick="openModal('subscribe')">Subscribe to Newsletter</button>
+                <button class="community-btn" onclick="openModal('feedback')">Send Feedback</button>
+                <button class="community-btn" onclick="openModal('share')">Share Your Project</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p data-i18n="copyright">&copy; 2025 Arduino Learning Hub. All rights reserved.</p>
+        <p data-i18n="madeWith">Made with ❤️ for Arduino enthusiasts</p>
+        <div class="footer-links">
+            <p>Follow & Connect:</p>
+            <a href="https://github.com/gagik8615-spec/site" target="_blank" class="github-link">
+                <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
